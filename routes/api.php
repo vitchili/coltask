@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthApiController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CommentController;
@@ -15,101 +16,115 @@ use App\Http\Controllers\SprintController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group. Make something great!
-|
-*/
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+//Login routes
+Route::post('/login', [AuthApiController::class, 'login']);
+Route::post('/register', [AuthApiController::class, 'register']);
+Route::middleware('auth:sanctum')->post('/logout', [AuthApiController::class, 'logout']);
 
 //Task routes
-Route::get('/tasks', [TaskController::class, 'showAll']);
-Route::get('/task/{id}', [TaskController::class, 'show']);
-Route::post('/task', [TaskController::class, 'store']);
-Route::put('/task/{id}', [TaskController::class, 'update']);
-Route::delete('/task/{id}', [TaskController::class, 'destroy']);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/tasks', [TaskController::class, 'showAll']);
+    Route::get('/task/{id}', [TaskController::class, 'show']);
+    Route::post('/task', [TaskController::class, 'store']);
+    Route::put('/task/{id}', [TaskController::class, 'update']);
+    Route::delete('/task/{id}', [TaskController::class, 'destroy']);
+});
 
 //Client routes
-Route::get('/clients', [ClientController::class, 'showAll']);
-Route::get('/client/{id}', [ClientController::class, 'show']);
-Route::post('/client', [ClientController::class, 'store']);
-Route::put('/client/{id}', [ClientController::class, 'update']);
-Route::delete('/client/{id}', [ClientController::class, 'destroy']);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/clients', [ClientController::class, 'showAll']);
+    Route::get('/client/{id}', [ClientController::class, 'show']);
+    Route::post('/client', [ClientController::class, 'store']);
+    Route::put('/client/{id}', [ClientController::class, 'update']);
+    Route::delete('/client/{id}', [ClientController::class, 'destroy']);
+});
 
 //Comment routes
-Route::get('/comments', [CommentController::class, 'showAll']);
-Route::get('/comment/{id}', [CommentController::class, 'show']);
-Route::post('/comment', [CommentController::class, 'store']);
-Route::put('/comment/{id}', [CommentController::class, 'update']);
-Route::delete('/comment/{id}', [CommentController::class, 'destroy']);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/comments', [CommentController::class, 'showAll']);
+    Route::get('/comment/{id}', [CommentController::class, 'show']);
+    Route::post('/comment', [CommentController::class, 'store']);
+    Route::put('/comment/{id}', [CommentController::class, 'update']);
+    Route::delete('/comment/{id}', [CommentController::class, 'destroy']);
+});
 
 //Direction routes
-Route::get('/directions', [DirectionController::class, 'showAll']);
-Route::get('/direction/{id}', [DirectionController::class, 'show']);
-Route::post('/direction', [DirectionController::class, 'store']);
-Route::put('/direction/{id}', [DirectionController::class, 'update']);
-Route::delete('/direction/{id}', [DirectionController::class, 'destroy']);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/directions', [DirectionController::class, 'showAll']);
+    Route::get('/direction/{id}', [DirectionController::class, 'show']);
+    Route::post('/direction', [DirectionController::class, 'store']);
+    Route::put('/direction/{id}', [DirectionController::class, 'update']);
+    Route::delete('/direction/{id}', [DirectionController::class, 'destroy']);
+});
 
 //Fase routes
-Route::get('/fases', [FaseController::class, 'showAll']);
-Route::get('/fase/{id}', [FaseController::class, 'show']);
-Route::post('/fase', [FaseController::class, 'store']);
-Route::put('/fase/{id}', [FaseController::class, 'update']);
-Route::delete('/fase/{id}', [FaseController::class, 'destroy']);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/fases', [FaseController::class, 'showAll']);
+    Route::get('/fase/{id}', [FaseController::class, 'show']);
+    Route::post('/fase', [FaseController::class, 'store']);
+    Route::put('/fase/{id}', [FaseController::class, 'update']);
+    Route::delete('/fase/{id}', [FaseController::class, 'destroy']);
+});
 
 //Kanban routes
-Route::get('/kanbans', [KanbanController::class, 'showAll']);
-Route::get('/kanban/{id}', [KanbanController::class, 'show']);
-Route::post('/kanban', [KanbanController::class, 'store']);
-Route::put('/kanban/{id}', [KanbanController::class, 'update']);
-Route::delete('/kanban/{id}', [KanbanController::class, 'destroy']);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/kanbans', [KanbanController::class, 'showAll']);
+    Route::get('/kanban/{id}', [KanbanController::class, 'show']);
+    Route::post('/kanban', [KanbanController::class, 'store']);
+    Route::put('/kanban/{id}', [KanbanController::class, 'update']);
+    Route::delete('/kanban/{id}', [KanbanController::class, 'destroy']);
+});
 
 //Module routes
-Route::get('/modules', [ModuleController::class, 'showAll']);
-Route::get('/module/{id}', [ModuleController::class, 'show']);
-Route::post('/module', [ModuleController::class, 'store']);
-Route::put('/module/{id}', [ModuleController::class, 'update']);
-Route::delete('/module/{id}', [ModuleController::class, 'destroy']);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/modules', [ModuleController::class, 'showAll']);
+    Route::get('/module/{id}', [ModuleController::class, 'show']);
+    Route::post('/module', [ModuleController::class, 'store']);
+    Route::put('/module/{id}', [ModuleController::class, 'update']);
+    Route::delete('/module/{id}', [ModuleController::class, 'destroy']);
+});
 
 //Priority routes
-Route::get('/priorities', [PriorityController::class, 'showAll']);
-Route::get('/priority/{id}', [PriorityController::class, 'show']);
-Route::post('/priority', [PriorityController::class, 'store']);
-Route::put('/priority/{id}', [PriorityController::class, 'update']);
-Route::delete('/priority/{id}', [PriorityController::class, 'destroy']);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/priorities', [PriorityController::class, 'showAll']);
+    Route::get('/priority/{id}', [PriorityController::class, 'show']);
+    Route::post('/priority', [PriorityController::class, 'store']);
+    Route::put('/priority/{id}', [PriorityController::class, 'update']);
+    Route::delete('/priority/{id}', [PriorityController::class, 'destroy']);
+});
 
 //Product routes
-Route::get('/products', [ProductController::class, 'showAll']);
-Route::get('/product/{id}', [ProductController::class, 'show']);
-Route::post('/product', [ProductController::class, 'store']);
-Route::put('/product/{id}', [ProductController::class, 'update']);
-Route::delete('/product/{id}', [ProductController::class, 'destroy']);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/products', [ProductController::class, 'showAll']);
+    Route::get('/product/{id}', [ProductController::class, 'show']);
+    Route::post('/product', [ProductController::class, 'store']);
+    Route::put('/product/{id}', [ProductController::class, 'update']);
+    Route::delete('/product/{id}', [ProductController::class, 'destroy']);
+});
 
 //Requirement routes
-Route::get('/requirements', [RequirementController::class, 'showAll']);
-Route::get('/requirement/{id}', [RequirementController::class, 'show']);
-Route::post('/requirement', [RequirementController::class, 'store']);
-Route::put('/requirement/{id}', [RequirementController::class, 'update']);
-Route::delete('/requirement/{id}', [RequirementController::class, 'destroy']);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/requirements', [RequirementController::class, 'showAll']);
+    Route::get('/requirement/{id}', [RequirementController::class, 'show']);
+    Route::post('/requirement', [RequirementController::class, 'store']);
+    Route::put('/requirement/{id}', [RequirementController::class, 'update']);
+    Route::delete('/requirement/{id}', [RequirementController::class, 'destroy']);
+});
 
 //Screen routes
-Route::get('/screens', [ScreenController::class, 'showAll']);
-Route::get('/screen/{id}', [ScreenController::class, 'show']);
-Route::post('/screen', [ScreenController::class, 'store']);
-Route::put('/screen/{id}', [ScreenController::class, 'update']);
-Route::delete('/screen/{id}', [ScreenController::class, 'destroy']);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/screens', [ScreenController::class, 'showAll']);
+    Route::get('/screen/{id}', [ScreenController::class, 'show']);
+    Route::post('/screen', [ScreenController::class, 'store']);
+    Route::put('/screen/{id}', [ScreenController::class, 'update']);
+    Route::delete('/screen/{id}', [ScreenController::class, 'destroy']);
+});
 
 //Sprint routes
-Route::get('/sprints', [SprintController::class, 'showAll']);
-Route::get('/sprint/{id}', [SprintController::class, 'show']);
-Route::post('/sprint', [SprintController::class, 'store']);
-Route::put('/sprint/{id}', [SprintController::class, 'update']);
-Route::delete('/sprint/{id}', [SprintController::class, 'destroy']);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/sprints', [SprintController::class, 'showAll']);
+    Route::get('/sprint/{id}', [SprintController::class, 'show']);
+    Route::post('/sprint', [SprintController::class, 'store']);
+    Route::put('/sprint/{id}', [SprintController::class, 'update']);
+    Route::delete('/sprint/{id}', [SprintController::class, 'destroy']);
+});
