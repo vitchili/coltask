@@ -21,6 +21,7 @@ class Task extends Model
         'type',
         'title',
         'description',
+        'direction_id',
         'screen_id',
         'priority_id',
         'dead_line',

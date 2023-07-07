@@ -34,6 +34,7 @@ class StoreTaskRequest extends FormRequest
                 'type' => ['required', 'in:E,F,P'],
                 'title' => ['required', 'min:10', 'string'],
                 'description' => ['required', 'string'],
+                'direction_id' => ['required', 'integer', Rule::exists('directions', 'id')],
                 'screen_id' => ['required', 'integer', Rule::exists('screens', 'id')],
                 'priority_id' => ['required', 'integer', Rule::exists('priorities', 'id')],
                 'dead_line' => ['nullable','date'],
