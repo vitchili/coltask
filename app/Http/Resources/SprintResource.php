@@ -20,6 +20,11 @@ class SprintResource extends JsonResource
             'title'       => $this->title,
             'description' => $this->description,
             'dead_line'   => $this->dead_line,
+            'project'        => [
+                'id'             => $this->resource->project->id,
+                'title'          => $this->resource->project->title,
+                'description'    => $this->resource->project->description,
+            ],
             'created_by'  => $this->created_by,
             'created_at'  => $this->created_at,
             'updated_at'  => $this->updated_at,

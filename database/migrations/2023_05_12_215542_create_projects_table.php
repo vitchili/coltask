@@ -13,14 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('fases', function (Blueprint $table) {
+        Schema::create('projects', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('title');
             $table->string('description');
-            $table->string('hex_color', 7)->default('#f8f8f8');
+            $table->foreignIdFor(\App\Models\User::class, 'created_by');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->nullable()->useCurrentOnUpdate();
-            $table->boolean('visibility')->default(1);
         });
     }
 
@@ -31,6 +30,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('fases');
+        Schema::dropIfExists('projects');
     }
+
 };

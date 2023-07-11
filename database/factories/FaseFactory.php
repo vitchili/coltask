@@ -17,7 +17,9 @@ class FaseFactory extends Factory
     public function definition()
     {
         return [
-            'name' => 'Novo Bug'
+            'name' => 'Novo Bug',
+            'description' => 'Teste',
+            'hex_color' => '#f8f8f8'
         ];
     }
 }

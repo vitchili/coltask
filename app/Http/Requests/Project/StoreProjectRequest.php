@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Fase;
+namespace App\Http\Requests\Project;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
 
-class StoreFaseRequest extends FormRequest
+class StoreProjectRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,10 +27,8 @@ class StoreFaseRequest extends FormRequest
 
         if(Str::isJson($this->content)){
             $response = [
-                'name'        => ['required', 'string'],
-                'description' => ['required', 'string'],
-                'hex_color'   => ['nullable', 'string'],
-                'visibility'  => ['nullable', 'boolean'],
+                'title'        => ['required', 'string'],
+                'description'  => ['required', 'string'],
             ];
         }else{
             $response = ['invalid_json' => ['required']];
@@ -48,12 +46,10 @@ class StoreFaseRequest extends FormRequest
 
         if(Str::isJson($this->content)){
             $response = [
-                'name.required'        => 'O campo "Nome" é obrigatório.',
-                'name.string'          => 'O campo "Nome" deve ser um texto.',
-                'description.required' => 'O campo "Descrição" é obrigatório.',
-                'description.string'   => 'O campo "Descrição" deve ser um texto.',
-                'hex_color.string'     => 'O campo "Cor" deve ser um hexadecimal #xxxxxx.',
-                'visibility.boolean'   => 'O campo "Visibilidade" deve ser booleano.',
+                'title.required'      => 'O campo "Título" é obrigatório.',
+                'title.string'        => 'O campo "Título" deve ser um texto.',
+                'description.required'=> 'O campo "Descrição" é obrigatório.',
+                'description.string'  => 'O campo "Descrição" deve ser um texto.',
             ];
         }else{
             $response = ['invalid_json.required' => 'O json é inválido.'];
@@ -61,4 +57,5 @@ class StoreFaseRequest extends FormRequest
 
         return $response;
     }
+    
 }

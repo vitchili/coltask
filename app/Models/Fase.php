@@ -10,19 +10,7 @@ class Fase extends Model
 {
     use HasFactory;
 
-    const WaitingDistribution = 1;
-    const UnderReview = 2;
-    const InProgress = 3;
-    const InTest = 4;
-    const InRefactoring = 5;
-    const WaitingPublishment = 6;
-    const FinishedByDevelopment = 7;
-    const FinishedBySupport = 8;
-    const Canceled = 9;
-    const InactiveWaitingFeedbackFromClient = 10;
-    const InactiveOtherReason = 11;
-
-    public $fillable = ['name'];
+    public $fillable = ['name', 'description', 'hex_color'];
 
     /**
      * Return tasks who are in this fase

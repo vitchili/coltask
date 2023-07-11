@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('description');
             $table->dateTime('dead_line', $precison = 0)->nullable();
+            $table->foreignIdFor(\App\Models\Project::class, 'project_id');
             $table->foreignIdFor(\App\Models\User::class, 'created_by');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->nullable()->useCurrentOnUpdate();

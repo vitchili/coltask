@@ -20,7 +20,6 @@ class DirectionObserver
     public function creating(Direction $direction): void
     {
         $direction->created_at = now();
-        $direction->visibility = 1;
     }
 
     /**

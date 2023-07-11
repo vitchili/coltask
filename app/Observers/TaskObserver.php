@@ -21,7 +21,7 @@ class TaskObserver
     public function creating(Task $task): void
     {
         $task->created_by = 1; //auth()->user()->id; Reativar quando fizer a logica de auth toda
-        $task->fase_id = Fase::WaitingDistribution;
+        $task->fase_id = 1;
         $task->created_at = now();
         $task->deployed = 0;
         $task->canceled = 0;

@@ -10,6 +10,7 @@ use App\Models\Kanban;
 use App\Models\Module;
 use App\Models\Priority;
 use App\Models\Product;
+use App\Models\Project;
 use App\Models\Screen;
 use App\Models\Sprint;
 use App\Models\Task;
@@ -21,6 +22,7 @@ use App\Observers\KanbanObserver;
 use App\Observers\ModuleObserver;
 use App\Observers\PriorityObserver;
 use App\Observers\ProductObserver;
+use App\Observers\ProjectObserver;
 use App\Observers\ScreenObserver;
 use App\Observers\SprintObserver;
 use App\Observers\TaskObserver;
@@ -51,6 +53,7 @@ class AppServiceProvider extends ServiceProvider
         Product::observe(ProductObserver::class);
         Screen::observe(ScreenObserver::class);
         Sprint::observe(SprintObserver::class);
+        Project::observe(ProjectObserver::class);
         Task::observe(TaskObserver::class);
     }
 }

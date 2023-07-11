@@ -4,6 +4,7 @@ namespace App\Http\Requests\Sprint;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class UpdateSprintRequest extends FormRequest
 {
@@ -30,6 +31,7 @@ class UpdateSprintRequest extends FormRequest
                 'title'        => ['nullable', 'string'],
                 'description'  => ['nullable', 'string'],
                 'dead_line'    => ['nullable', 'date', 'after:today'],
+                'project_id'   => ['nullable', 'integer', Rule::exists('projects', 'id')],
             ];
         }else{
             $response = ['invalid_json' => ['required']];
@@ -51,7 +53,7 @@ class UpdateSprintRequest extends FormRequest
                 'description.string'  => 'O campo "Descrição" deve ser um texto.',
                 'dead_line.date'      => 'O campo "Prazo" deve ser uma data válida.',
                 'dead_line.after'     => 'O campo "Prazo" deve ser posterior a data de hoje.',
-
+                'project.integer'     => 'O campo "Projeto" deve ser um número inteiro.',
             ];
         }else{
             $response = ['invalid_json.required' => 'O json é inválido.'];

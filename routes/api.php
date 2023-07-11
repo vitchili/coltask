@@ -13,6 +13,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RequirementController;
 use App\Http\Controllers\ScreenController;
 use App\Http\Controllers\SprintController;
+use App\Http\Controllers\ProjectController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -127,4 +128,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/sprint', [SprintController::class, 'store']);
     Route::put('/sprint/{id}', [SprintController::class, 'update']);
     Route::delete('/sprint/{id}', [SprintController::class, 'destroy']);
+});
+
+//Project routes
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/projects', [ProjectController::class, 'showAll']);
+    Route::get('/project/{id}', [ProjectController::class, 'show']);
+    Route::post('/project', [ProjectController::class, 'store']);
+    Route::put('/project/{id}', [ProjectController::class, 'update']);
+    Route::delete('/project/{id}', [ProjectController::class, 'destroy']);
 });

@@ -16,10 +16,13 @@ class BasicElementsSeeder extends Seeder
         \App\Models\Screen::factory(1)->create();
         \App\Models\Fase::factory(1)->create();
         \App\Models\Direction::factory(1)->create();
+        \App\Models\Project::factory(1)->create();
         \App\Models\Sprint::factory(1)->create();
         \App\Models\Kanban::factory(1)->create();
         \App\Models\Client::factory(1)->create();
         \App\Models\Priority::factory(1)->create();
         \App\Models\Task::factory(1)->create();
+
     }
+
 }

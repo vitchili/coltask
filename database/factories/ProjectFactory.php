@@ -5,10 +5,11 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Sprint>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Project>
  */
-class SprintFactory extends Factory
+class ProjectFactory extends Factory
 {
+
     /**
      * Define the model's default state.
      *
@@ -17,10 +18,8 @@ class SprintFactory extends Factory
     public function definition()
     {
         return [
-            'title' => 'Titulo teste',
+            'title' => 'Teste',
             'description' => 'Descricao Teste',
-            'dead_line' => now(),
-            'project_id' => 1,
             'created_by' => 1,
         ];
     }

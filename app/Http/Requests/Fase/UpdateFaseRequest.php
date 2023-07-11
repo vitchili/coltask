@@ -28,6 +28,8 @@ class UpdateFaseRequest extends FormRequest
         if(Str::isJson($this->content)){
             $response = [
                 'name'        => ['nullable', 'string'],
+                'description' => ['nullable', 'string'],
+                'hex_color'   => ['nullable', 'string'],
                 'visibility'  => ['nullable', 'boolean'],
             ];
         }else{
@@ -47,6 +49,8 @@ class UpdateFaseRequest extends FormRequest
         if(Str::isJson($this->content)){
             $response = [
                 'name.string'        => 'O campo "Nome" deve ser um texto.',
+                'description.string' => 'O campo "Nome" deve ser um texto.',
+                'hex_color.string'     => 'O campo "Cor" deve ser um hexadecimal #xxxxxx.',
                 'visibility.boolean' => 'O campo "Visibilidade" deve ser booleano.',
             ];
         }else{

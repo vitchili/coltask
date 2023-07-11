@@ -32,6 +32,13 @@ class TaskResource extends JsonResource
             ],
             'title'             => $this->title,
             'description'       => $this->description,
+            'direction' => [
+                'id'            => $this->resource->direction->id,
+                'name'          => $this->resource->direction->name,
+                'slang'         => $this->resource->direction->slang,
+                'created_at'    => $this->resource->direction->created_at,
+                'updated_at'    => $this->resource->direction->updated_at,
+            ],
             'product' => [
                 'id'            => $this->resource->screen->module->product->id,
                 'name'          => $this->resource->screen->module->product->name,

@@ -64,27 +64,6 @@ class Task extends Model
     /**
      * Return task fase name
      */
-    public function getFaseName() : mixed
-    {
-        return match($this->fase_id){
-            Fase::WaitingDistribution => 'Aguardando Distribuição',
-            Fase::UnderReview => 'Em análise',
-            Fase::InProgress => 'Em andamento',
-            Fase::InTest => 'Em teste',
-            Fase::InRefactoring => 'Em refatoração',
-            Fase::WaitingPublishment => 'Aguardando publicação',
-            Fase::FinishedByDevelopment => 'Finalizado pelo desenvolvimento',
-            Fase::FinishedBySupport => 'Finalizado pelo suporte',
-            Fase::Canceled => 'Cancelado',
-            Fase::InactiveWaitingFeedbackFromClient => 'Aguardando retorno do cliente',
-            Fase::InactiveOtherReason => 'Inativo - Outros motivos',
-            
-        };
-    }
-
-    /**
-     * Return task fase name
-     */
     public function getTypeName() : mixed
     {
         return match($this->type){
