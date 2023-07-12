@@ -14,6 +14,7 @@ use App\Http\Controllers\RequirementController;
 use App\Http\Controllers\ScreenController;
 use App\Http\Controllers\SprintController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\TeamController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -137,4 +138,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/project', [ProjectController::class, 'store']);
     Route::put('/project/{id}', [ProjectController::class, 'update']);
     Route::delete('/project/{id}', [ProjectController::class, 'destroy']);
+});
+
+//Teams routes
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/teams', [TeamController::class, 'showAll']);
+    Route::get('/team/{id}', [TeamController::class, 'show']);
+    Route::post('/team', [TeamController::class, 'store']);
+    Route::put('/team/{id}', [TeamController::class, 'update']);
+    Route::delete('/team/{id}', [TeamController::class, 'destroy']);
 });

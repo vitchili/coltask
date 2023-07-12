@@ -21,6 +21,7 @@ class BasicElementsSeeder extends Seeder
         \App\Models\Kanban::factory(1)->create();
         \App\Models\Client::factory(1)->create();
         \App\Models\Priority::factory(1)->create();
+        \App\Models\Team::factory(1)->create();
         \App\Models\Task::factory(1)->create();
 
     }

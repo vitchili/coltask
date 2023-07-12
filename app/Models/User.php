@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -75,5 +76,13 @@ class User extends Authenticatable
     public function tasksSponsor() : HasMany
     {
         return $this->hasMany(Task::class, 'sponsor_id');
+    }
+
+    /**
+     * Return teams of this user
+     */
+    public function teams() : BelongsToMany
+    {
+        return $this->belongsToMany(Team::class, 'users_teams', 'user_id', 'team_id');
     }
 }
