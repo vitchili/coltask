@@ -35,7 +35,11 @@ class AuthApiController extends Controller
             $user = User::find(auth()->user()->id);
             $token = $user->createToken('api-token')->plainTextToken;
 
-            return response()->json(['token' => $token], 200);
+            return response()->json([
+                'token' => $token,
+                'id' => $user->id,
+                'name' => $user->name,
+            ], 200);
         }
 
         throw ValidationException::withMessages([
