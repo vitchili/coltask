@@ -85,4 +85,13 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Team::class, 'users_teams', 'user_id', 'team_id');
     }
+
+    /**
+     * Return directions of this user //OFFICE ROLE, CARGO
+     */
+    public function directions() : BelongsToMany
+    {
+        return $this->belongsToMany(Direction::class, 'users_directions', 'user_id', 'direction_id');
+    }
+
 }

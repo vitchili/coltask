@@ -48,6 +48,31 @@ class AuthApiController extends Controller
     }
 
     /**
+     * Return users by params.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function usersFilter(Request $request): mixed
+    {
+
+        if ($request->direction_id) {
+            $directionId = $request->direction_id;
+            $users = User::whereHas('directions', function ($query) use ($directionId) {
+                $query->where('id', $directionId);
+            })->get(['id', 'name'])->toArray();
+
+        }else{
+            $users = User::get(['id', 'name'])->toArray();
+        }
+
+        return response()->json($users, 200);
+
+    }
+
+    /**
      * Cria um novo usuário na API.
      *
      * @param  \Illuminate\Http\Request  $request

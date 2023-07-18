@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignIdFor(\App\Models\Client::class, 'client_id');
             $table->string('email_copy')->nullable();
             $table->string('outside_requester')->nullable();
-            $table->char('type', 1)->comment('E=error,F=feature,P=project');
+            $table->char('type', 1)->comment('E=error,F=feature,H=help,S=service');
             $table->string('title');
             $table->string('description');
             $table->foreignIdFor(\App\Models\Direction::class, 'direction_id');

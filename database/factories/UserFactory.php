@@ -18,10 +18,10 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'name' => 'Tester Teste',
-            'email' => 'teste@teste.com',
+            'name' => 'Admin',
+            'email' => 'admin@teste.com',
             'email_verified_at' => now(),
-            'password' => '$2y$10$Og5VaHs4tPkAkngW.RJp6.HTbKYjU7b0KmJKwJn4Fhz3NTHT/KJxS', // password
+            'password' => '$2y$10$rAwSpFO2CmfGGz5sLNDbV.5MRSc9fgs0fIFUtPSnfevTZCqPEuXgq', // password
         ];
     }
 

@@ -19,6 +19,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 //Login routes
+Route::middleware('auth:sanctum')->post('/usersFilter', [AuthApiController::class, 'usersFilter']);
 Route::post('/login', [AuthApiController::class, 'login']);
 Route::post('/register', [AuthApiController::class, 'register']);
 Route::middleware('auth:sanctum')->post('/logout', [AuthApiController::class, 'logout']);
