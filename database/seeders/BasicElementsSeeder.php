@@ -41,7 +41,36 @@ class BasicElementsSeeder extends Seeder
         \App\Models\Priority::factory(1)->create();
         \App\Models\Team::factory(1)->create();
 
-        \App\Models\Task::factory(1)->create();
+        $client_id = 1;
+        $email_copy = null;
+        $outside_requester = "Vitor";
+        $type = "E";
+        $direction_id = 1;
+        $title = "Teste de task Teste de task ";
+        $description = "Teste desc Teste desc Teste desc Teste desc ";
+        $screen_id = 1;
+        $priority_id = 1;
+        $dead_line = "2023-05-31 00:00:00";
+        $attachment_json = null;
+        $sprint_id = 1;
+
+        for($i=0;$i<10; $i++){
+            \App\Models\Task::create([
+                'client_id' => $client_id, 
+                'email_copy' => $email_copy, 
+                'outside_requester' => $outside_requester, 
+                'type' => $type, 
+                'direction_id' => $direction_id, 
+                'title' => $title . ' ' . $i, 
+                'description' => $description . ' ' . $i, 
+                'screen_id' => $screen_id, 
+                'priority_id' => $priority_id, 
+                'dead_line' => $dead_line, 
+                'attachment_json' => $attachment_json, 
+                'sprint_id' => $sprint_id, 
+            ]);
+        }
+        
 
     }
 

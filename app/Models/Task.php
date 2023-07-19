@@ -92,7 +92,7 @@ class Task extends Model
     /**
      * Return screen of this task
      */
-    public function screen() : BelongsTo
+    public function screen() : ?BelongsTo
     {
         return $this->belongsTo(Screen::class);
     }
@@ -124,7 +124,7 @@ class Task extends Model
     /**
      * Return sprint of this task
      */
-    public function sprint() : BelongsTo
+    public function sprint() : ?BelongsTo
     {
         return $this->belongsTo(Sprint::class, 'sprint_id');
     }
