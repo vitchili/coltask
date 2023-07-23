@@ -7,6 +7,8 @@ use App\Http\Requests\Task\UpdateTaskRequest;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Resources\TaskResource;
 use App\Models\Task;
+use App\Services\Drive\TaskAttachmentsUploadService;
+use App\Services\EditorFormatter\EditorContentFormatterService;
 use Exception;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
@@ -20,21 +22,32 @@ class TaskController extends Controller
     {
         
         $data = $request->all();
-
+        
         $task = new Task;
         $task->fill($data);
 
         try{
-            
+            $formatter = new EditorContentFormatterService($data['description']);
+            $description = $formatter->getContentWithoutBase64();
+            $task->description = $description;
             $task->save();
+            
+            $base64Files = $formatter->getBase64FilesFromContent();
+            $driver = new TaskAttachmentsUploadService($base64Files, $task->id);
+            $driver->convertBase64ToBinary();
+            $driver->uploadAttachmentsToDrive();
+            $task->attachment_json = $driver->getFilenamesFromStorage();
+            $task->update();
 
-            return array_merge(['request_status' => 'Operação realizada com sucesso.'], $task->toArray());
+            return response()->json(
+                array_merge(['request_status' => 'Operação realizada com sucesso.'], $task->toArray())
+            , 201);
         }
         catch(Exception $e){
-            return [
+            return response()->json([
                 'request_status' => 'Erro ao adicionar tarefa.', 
                 'message' => $e->getMessage()
-            ];
+            ], 500);
         }
 
     }

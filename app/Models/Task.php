@@ -31,6 +31,7 @@ class Task extends Model
         'modification',
         'modification_finished_at',
         'branch',
+        'qa_id',
         'approved_or_failed',
         'approved_or_failed_by',
         'last_approval',
@@ -67,9 +68,10 @@ class Task extends Model
     public function getTypeName() : mixed
     {
         return match($this->type){
-            'E' => 'Erro', //error
-            'F' => 'Melhoria', //feature
-            'P' => 'Projeto', //project
+            'E' => 'Correção de Erro', //error
+            'F' => 'Nova Feature', //feature
+            'H' => 'Ajuda', //help
+            'S' => 'Servico', //service
         };
     }
 
@@ -119,6 +121,14 @@ class Task extends Model
     public function sponsor() : ?BelongsTo
     {
         return $this->belongsTo(User::class, 'sponsor_id');
+    }
+
+    /**
+     * Return QA of this task
+     */
+    public function qa() : ?BelongsTo
+    {
+        return $this->belongsTo(User::class, 'qa_id');
     }
 
     /**
