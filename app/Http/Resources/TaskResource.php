@@ -18,8 +18,8 @@ class TaskResource extends JsonResource
         return [
             'id'     => $this->resource->id,
             'client' => [
-                'client_id'     => $this->client_id,
-                'client_name'   => $this->resource->client->name,
+                'id'            => $this->client_id,
+                'name'          => $this->resource->client->name,
                 'created_at'    => $this->resource->client->created_at,
                 'updated_at'    => $this->resource->client->updated_at,
                 'visibility'    => $this->resource->client->visibility,
@@ -27,8 +27,8 @@ class TaskResource extends JsonResource
             'email_copy'        => $this->email_copy,
             'outside_requester' => $this->outside_requester,
             'type' => [
-                'type_id'       => $this->type,
-                'type_name'     => $this->resource->getTypeName(),
+                'id'            => $this->type,
+                'name'          => $this->resource->getTypeName(),
             ],
             'title'             => $this->title,
             'description'       => $this->description,
@@ -75,6 +75,10 @@ class TaskResource extends JsonResource
                 'id'            => $this->resource->sponsor?->id,
                 'name'          => $this->resource->sponsor?->name,
             ],
+            'qa' => [
+                'id'            => $this->resource->qa?->id,
+                'name'          => $this->resource->qa?->name,
+            ],
             'started_at'        => $this->started_at,
             'modification'      => $this->modification,
             'modification_finished_at' => $this->modification_finished_at,
@@ -102,6 +106,8 @@ class TaskResource extends JsonResource
                 'created_at'    => $this->resource->sprint?->created_at,
                 'updated_at'    => $this->resource->sprint?->updated_at,
             ],
+            'not_email_owner'   => $this->not_email_owner,
+            'not_email_copies'  => $this->not_email_copies,
             'visibility'        => $this->visibility,
         ];
     }

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('outside_requester')->nullable();
             $table->char('type', 1)->comment('E=error,F=feature,H=help,S=service');
             $table->string('title');
-            $table->string('description');
+            $table->text('description');
             $table->foreignIdFor(\App\Models\Direction::class, 'direction_id');
             $table->foreignIdFor(\App\Models\Screen::class, 'screen_id')->nullable();
             $table->foreignIdFor(\App\Models\Priority::class, 'priority_id')->nullable();
