@@ -31,7 +31,7 @@ class UpdateTaskRequest extends FormRequest
                 'client_id' => ['nullable', 'integer', Rule::exists('clients', 'id')],
                 'email_copy' => ['nullable', 'string'],
                 'outside_requester' => ['nullable', 'string'],
-                'type' => ['nullable', 'in:E,F,P'],
+                'type' => ['nullable', 'in:E,F,H,S'],
                 'title' => ['nullable', 'min:10', 'string'],
                 'description' => ['nullable', 'string'],
                 'screen_id' => ['nullable', 'integer', Rule::exists('screens', 'id')],

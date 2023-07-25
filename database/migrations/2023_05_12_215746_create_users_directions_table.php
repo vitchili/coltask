@@ -14,12 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('users_directions', function (Blueprint $table) {
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('direction_id');
+            $table->foreignIdFor(\App\Models\User::class, 'user_id');
+            $table->foreignIdFor(\App\Models\Direction::class, 'direction_id');
             $table->timestamps();
-
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('direction_id')->references('id')->on('directions')->onDelete('cascade');
         });
     }
 
