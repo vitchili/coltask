@@ -85,11 +85,21 @@ class TaskController extends Controller
     public function update(UpdateTaskRequest $request, int $id): array
     {
         $data = $request->all();
-
         try{
             $task = Task::findOrFail($id);
             $task->fill($data);
+            
+            $formatter = new EditorContentFormatterService($data['description']);
+            $description = $formatter->getContentWithoutBase64();
+            $task->description = $description;
             $task->save();
+
+            $base64Files = $formatter->getBase64FilesFromContent();
+            $driver = new TaskAttachmentsUploadService($base64Files, $task->id);
+            $driver->convertBase64ToBinary();
+            $driver->uploadAttachmentsToDrive();
+            $task->attachment_json = $driver->getFilenamesFromStorage();
+            $task->update();
 
             return array_merge(['request_status' => 'Update realizado com sucesso.'], $task->toArray());
 
@@ -117,6 +127,26 @@ class TaskController extends Controller
         catch(Exception $e){
             return [
                 'request_status' => 'Erro ao excluir tarefa.', 
+                'message' => $e->getMessage()
+            ];
+        }
+    }
+
+    /**
+     * Get base64 files from this task attachments
+     */
+    public function getBase64Attachments(int $id): array|string
+    {
+        try{
+            $driver = new TaskAttachmentsUploadService([], $id);
+            $driver->getBinaryFilesFromStorage();
+            $base64Files = $driver->convertBinaryToBase64();
+
+            return json_encode($base64Files);
+        }
+        catch(Exception $e){
+            return [
+                'request_status' => 'Erro ao buscar anexos.', 
                 'message' => $e->getMessage()
             ];
         }

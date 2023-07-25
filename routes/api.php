@@ -28,6 +28,7 @@ Route::middleware('auth:sanctum')->post('/logout', [AuthApiController::class, 'l
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/tasks', [TaskController::class, 'showAll']);
     Route::get('/task/{id}', [TaskController::class, 'show']);
+    Route::get('/task/{id}/getBase64Attachments', [TaskController::class, 'getBase64Attachments']);
     Route::post('/task', [TaskController::class, 'store']);
     Route::put('/task/{id}', [TaskController::class, 'update']);
     Route::delete('/task/{id}', [TaskController::class, 'destroy']);

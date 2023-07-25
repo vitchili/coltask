@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Storage;
 
 class TaskAttachmentsUploadService {
 
-    public function __construct(public array $files, public int $taskId){
+    public function __construct(public array $files = [], public int $taskId = 0){
 
     }
 
@@ -58,6 +58,51 @@ class TaskAttachmentsUploadService {
         }
 
         return json_encode($filenames);
+    }
+    
+    /**
+     * Get filenames of attachments and organize it as a json
+     * 
+     * @return array
+     */
+    public function getBinaryFilesFromStorage() : array
+    {
+        $files = Storage::files("task/{$this->taskId}");
+        $binaryFiles = [];
+
+        foreach ($files as $file) {
+            $explodeExtension = explode(".", $file);
+            $extension = $explodeExtension[1];
+
+            $binaryFiles[] =  [
+                'file' => Storage::get($file),
+                'extension' => $extension
+            ];
+        }
+
+        $this->files = $binaryFiles;
+        return $this->files;
+    }
+
+    /**
+     * 
+     * Convert an array of binary files to an array of base64 files.
+     * Use it only if necessary
+     * 
+     * @return array
+     */
+    public function convertBinaryToBase64() : array
+    {
+        $base64Files = [];
+        foreach($this->files as $key => $file){
+            $base64Files[] = [
+                'file' => base64_encode($file['file']),
+                'extension' => $file['extension']
+            ];
+        }
+        
+        $this->files = $base64Files;
+        return $this->files;
     }
     
 }
