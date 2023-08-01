@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Storage;
 
 class TaskAttachmentsUploadService {
 
-    public function __construct(public array $files = [], public int $taskId = 0){
+    public function __construct(public array $files = [], public int $taskId = 0, public string $directoryKey = 'attachments'){
 
     }
 
@@ -18,12 +18,26 @@ class TaskAttachmentsUploadService {
      */
     public function uploadAttachmentsToDrive() : void
     {
+        $countFiles = $this->getCountAttachments();
+        
         foreach($this->files as $key => $file){
             $binaryDataString = $file['file'];
-            $fileName = $key . "." . $file['extension'];
-            Storage::put("task/{$this->taskId}" . '/' . $fileName, $binaryDataString);
+            $fileName = intval(($key + 1) + $countFiles) . "." . $file['extension'];
+            Storage::put("{$this->directoryKey}/{$this->taskId}" . '/' . $fileName, $binaryDataString);
         }
     }
+
+    /**
+     * Get count of files
+     * 
+     * @return int
+     */
+    public function getCountAttachments() : int
+    {
+        return count(Storage::files("{$this->directoryKey}/{$this->taskId}"));
+    }
+
+    
 
     /**
      * 
@@ -48,26 +62,11 @@ class TaskAttachmentsUploadService {
     /**
      * Get filenames of attachments and organize it as a json
      * 
-     * @return string
-     */
-    public function getFilenamesFromStorage() : string
-    {
-        $filenames = [];
-        foreach($this->files as $key => $file){
-            array_push($filenames, "/storage/task/{$this->taskId}/{$key}.{$file['extension']}");
-        }
-
-        return json_encode($filenames);
-    }
-    
-    /**
-     * Get filenames of attachments and organize it as a json
-     * 
      * @return array
      */
     public function getBinaryFilesFromStorage() : array
     {
-        $files = Storage::files("task/{$this->taskId}");
+        $files = Storage::files("{$this->directoryKey}/{$this->taskId}");
         $binaryFiles = [];
 
         foreach ($files as $file) {
@@ -103,6 +102,28 @@ class TaskAttachmentsUploadService {
         
         $this->files = $base64Files;
         return $this->files;
+    }
+
+    /**
+     * Delete files of this task and this directory
+     * 
+     * @return int
+     */
+    public function deleteFilesFromStorage($fileId) : int
+    {
+        $files = Storage::files("{$this->directoryKey}/{$this->taskId}");
+        $countDeletedFiles = 0;
+
+        foreach ($files as $file) {
+            $filename = basename(Storage::url($file));
+            $filename = explode('.', $filename);
+            if($filename[0] == $fileId){
+                Storage::delete($file);
+                $countDeletedFiles++;
+            }
+        }
+
+        return $countDeletedFiles;
     }
     
 }

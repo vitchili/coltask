@@ -37,7 +37,6 @@ class UpdateTaskRequest extends FormRequest
                 'screen_id' => ['nullable', 'integer', Rule::exists('screens', 'id')],
                 'priority_id' => ['nullable', 'integer', Rule::exists('priorities', 'id')],
                 'dead_line' => ['nullable','date'],
-                'attachment_json' => ['nullable', 'string'],
                 'sprint_id' => ['nullable', 'integer', Rule::exists('sprints', 'id')],
             ];
         }else{
