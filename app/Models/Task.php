@@ -25,7 +25,6 @@ class Task extends Model
         'screen_id',
         'priority_id',
         'dead_line',
-        'attachment_json',
         'sponsor_id',
         'started_at',
         'modification',

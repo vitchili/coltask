@@ -43,8 +43,10 @@ class EditorContentFormatterService
      */
     public function getContentWithoutBase64(): string
     {
-        $pattern = "/<figure class='image'><img src='data:([^;]+);base64,[^']+'[^>]*><\/figure>/i";
-        $textOnly = preg_replace($pattern, '', $this->content);
+        $patternFigure = "/<figure class='image'><img src='data:([^;]+);base64,[^']+'[^>]*><\/figure>/i";
+        $patternImg = "/<img src='data:([^;]+);base64,[^']+'[^>]*>/i";
+        $textOnly = preg_replace($patternFigure, '', $this->content);
+        $textOnly = preg_replace($patternImg, '', $this->content);
 
         return $textOnly;
     }

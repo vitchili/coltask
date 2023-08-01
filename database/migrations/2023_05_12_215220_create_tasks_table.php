@@ -25,7 +25,6 @@ return new class extends Migration
             $table->foreignIdFor(\App\Models\Screen::class, 'screen_id')->nullable();
             $table->foreignIdFor(\App\Models\Priority::class, 'priority_id')->nullable();
             $table->timestamp('dead_line', $precision = 0)->nullable();
-            $table->string('attachment_json')->nullable();
             $table->foreignIdFor(\App\Models\User::class, 'sponsor_id')->nullable();
             $table->timestamp('started_at', $precision = 0)->nullable();
             $table->string('modification')->nullable();

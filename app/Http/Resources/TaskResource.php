@@ -70,7 +70,6 @@ class TaskResource extends JsonResource
                 'visibility'    => $this->resource->priority->visibility,
             ],
             'dead_line'         => $this->dead_line,
-            'attachment_json'   => $this->attachment_json,
             'sponsor' => [
                 'id'            => $this->resource->sponsor?->id,
                 'name'          => $this->resource->sponsor?->name,

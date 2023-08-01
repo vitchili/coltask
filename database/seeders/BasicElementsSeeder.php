@@ -51,7 +51,6 @@ class BasicElementsSeeder extends Seeder
         $screen_id = 1;
         $priority_id = 1;
         $dead_line = "2023-05-31 00:00:00";
-        $attachment_json = null;
         $sprint_id = 1;
 
         for($i=0;$i<10; $i++){
@@ -66,7 +65,6 @@ class BasicElementsSeeder extends Seeder
                 'screen_id' => $screen_id, 
                 'priority_id' => $priority_id, 
                 'dead_line' => $dead_line, 
-                'attachment_json' => $attachment_json, 
                 'sprint_id' => $sprint_id, 
             ]);
         }
