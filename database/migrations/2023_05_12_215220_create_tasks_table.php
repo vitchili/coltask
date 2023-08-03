@@ -30,6 +30,7 @@ return new class extends Migration
             $table->string('modification')->nullable();
             $table->timestamp('modification_finished_at', $precision = 0)->nullable();
             $table->string('branch')->nullable();
+            $table->string('link_merge_request')->nullable(); 
             $table->foreignIdFor(\App\Models\User::class, 'qa_id')->nullable();
             $table->char('approved_or_failed', 1)->nullable();
             $table->foreignIdFor(\App\Models\User::class, 'approved_or_failed_by')->nullable();

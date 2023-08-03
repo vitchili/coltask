@@ -46,7 +46,7 @@ class EditorContentFormatterService
         $patternFigure = "/<figure class='image'><img src='data:([^;]+);base64,[^']+'[^>]*><\/figure>/i";
         $patternImg = "/<img src='data:([^;]+);base64,[^']+'[^>]*>/i";
         $textOnly = preg_replace($patternFigure, '', $this->content);
-        $textOnly = preg_replace($patternImg, '', $this->content);
+        $textOnly = preg_replace($patternImg, '', $textOnly);
 
         return $textOnly;
     }
