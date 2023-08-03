@@ -46,18 +46,16 @@ class TaskAttachmentsUploadService {
      * 
      * @return void
      */
-    public function convertBase64ToBinary() : mixed
+    public function convertBase64ToBinary() : void
     {
         $binaryFiles = [];
         foreach($this->files as $key => $file){
             $binaryFiles[] = [
-                'file' => base64_decode($file['file'], true),
+                'file' => base64_decode($file['file']),
                 'extension' => $file['extension']
             ];
         }
 
-        return [$binaryFiles];
-        
         $this->files = $binaryFiles;
     }
 
