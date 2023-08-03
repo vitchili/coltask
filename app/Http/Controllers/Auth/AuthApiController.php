@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use App\Models\User;
+use DateTime;
+use Illuminate\Support\Facades\Cookie;
 
 class AuthApiController extends Controller
 {
@@ -33,12 +35,15 @@ class AuthApiController extends Controller
 
         if (Auth::attempt($credentials)) {
             $user = User::find(auth()->user()->id);
-            $token = $user->createToken('api-token')->plainTextToken;
+            $token = $user->createToken('api-token');
+            $tokenStr = $token->plainTextToken;
+            $tomorrow = new DateTime('tomorrow');
 
             return response()->json([
-                'token' => $token,
+                'token' => $tokenStr,
                 'id' => $user->id,
                 'name' => $user->name,
+                'expires_at' => $tomorrow->format('m-d-Y')
             ], 200);
         }
 

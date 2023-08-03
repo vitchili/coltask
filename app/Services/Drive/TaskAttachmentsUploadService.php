@@ -55,7 +55,7 @@ class TaskAttachmentsUploadService {
                 'extension' => $file['extension']
             ];
         }
-        
+
         $this->files = $binaryFiles;
     }
 

@@ -30,6 +30,7 @@ class Task extends Model
         'modification',
         'modification_finished_at',
         'branch',
+        'link_merge_request',
         'qa_id',
         'approved_or_failed',
         'approved_or_failed_by',
