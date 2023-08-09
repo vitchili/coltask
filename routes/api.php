@@ -16,6 +16,7 @@ use App\Http\Controllers\SprintController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TaskAttachmentController;
 use App\Http\Controllers\TaskChangeController;
+use App\Http\Controllers\TaskTestController;
 use App\Http\Controllers\TeamController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -40,6 +41,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/task/changes/{id}', [TaskChangeController::class, 'saveTaskChanges']);
 });
 
+//Task tests routes
+Route::middleware('auth:sanctum')->group(function () {
+    Route::put('/task/tests/{id}', [TaskTestController::class, 'saveTaskTests']);
+});
 
 //Task File Attachments routes
 Route::middleware('auth:sanctum')->group(function () {

@@ -84,7 +84,7 @@ class TaskResource extends JsonResource
             'branch'            => $this->branch,
             'link_merge_request' => $this->link_merge_request,
             'approved_or_failed' => $this->approved_or_failed,
-            'approved_or_failed_by' => $this->approved_or_failed_by,
+            'test_ocorrency'    => $this->test_ocorrency,
             'last_approval'     => $this->last_approval,
             'last_failed'       => $this->last_failed,
             'deployed'          => $this->deployed,

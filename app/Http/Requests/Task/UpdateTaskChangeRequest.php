@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests\Task;
 
+use App\Models\Task;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class UpdateTaskChangeRequest extends FormRequest
 {
@@ -13,8 +14,12 @@ class UpdateTaskChangeRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true; //fazer validacoes das permissoes do spaten aqui. quem pode alterar etc.
-        // throw new \Illuminate\Auth\Access\AuthorizationException('Mensagem personalizada de autorização falhou.');
+        // $user = auth()->user();
+        // $taskId = $this->get('id');
+        // $task = Task::find($taskId);
+
+        // return $user->id === $task->sponsor_id; 
+        return true;
     }
 
     /**
@@ -28,12 +33,10 @@ class UpdateTaskChangeRequest extends FormRequest
 
         if(Str::isJson($this->content)){
             $response = [
-                'modification'             => ['required', 'min:10', 'string'],
-                'branch'                   => ['required', 'string'],
-                'link_merge_request'       => ['required', 'string'],
+                'faseId' => ['required', 'integer', Rule::exists('fases', 'id')],
             ];
         }else{
-            $response = ['modification'    => ['required', 'string']];
+            $response = ['faseId'  => ['required', 'integer']];
         }
 
         return $response;
@@ -48,16 +51,11 @@ class UpdateTaskChangeRequest extends FormRequest
 
         if(Str::isJson($this->content)){
             $response = [
-                'modification.required'       => 'O campo "modificação" é obrigatório.',
-                'modification.string'         => 'O campo "modificação" deve ser um texto.',
-                'modification.min'            => 'O campo "modificação" precisa de no mínimo 10 caracteres.',
-                'branch.required'             => 'O campo "branch" é obrigatório',
-                'branch.string'               => 'O campo "branch" deve ser um texto.',
-                'link_merge_request.required' => 'O campo "link do merge request" é obrigatório.',
-                'link_merge_request.string'   => 'O campo "link do merge request" deve ser um texto.',
+                'faseId.required' => 'O campo "fase" é obrigatório.',
+                'faseId.integer'  => 'O campo "fase" deve ser um número inteiro.',
             ];
         }else{
-            $response = ['modification.string' => 'O json é inválido.'];
+            $response = ['faseId.integer' => 'O json é inválido.'];
         }
 
         return $response;
