@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests\Task;
 
+use App\Models\Task;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 use Illuminate\Support\Str;
 
 class UpdateTaskTestRequest extends FormRequest
@@ -13,8 +13,12 @@ class UpdateTaskTestRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true; //fazer validacoes das permissoes do spaten aqui. quem pode alterar etc.
-        // throw new \Illuminate\Auth\Access\AuthorizationException('Mensagem personalizada de autorização falhou.');
+        // $user = auth()->user();
+        // $taskId = $this->get('id');
+        // $task = Task::find($taskId);
+
+        // return $user->id === $task->sponsor_id; 
+        return true;
     }
 
     /**
@@ -28,12 +32,11 @@ class UpdateTaskTestRequest extends FormRequest
 
         if(Str::isJson($this->content)){
             $response = [
-                'test_ocorrency'      => ['required', 'min:10', 'string'],
-                'qa_id'               => ['required', 'integer'],
-                'approved_or_failed'  => ['required', 'string', 'size:1', Rule::in(['A', 'F'])],
+                'test_ocorrency'     => ['required', 'string'],
+                'approved_or_failed' => ['required', 'string', 'max:1', 'in:A,F'],
             ];
         }else{
-            $response = ['test_ocorrency'    => ['required', 'string']];
+            $response = ['test_ocorrency'  => ['required', 'string']];
         }
 
         return $response;
@@ -48,17 +51,16 @@ class UpdateTaskTestRequest extends FormRequest
 
         if(Str::isJson($this->content)){
             $response = [
-                'test_ocorrency.required'       => 'O campo "teste" é obrigatório.',
-                'test_ocorrency.string'         => 'O campo "teste" deve ser um texto.',
-                'test_ocorrency.min'            => 'O campo "teste" precisa de no mínimo 10 caracteres.',
-                'qa_id.required'                => 'O campo "QA" é obrigatório',
-                'qa_id.integer'                 => 'O campo "QA" deve ser um número inteiro.',
-                'approved_or_failed.required'   => 'O campo "Aprovação" é obrigatório.',
+                'test_ocorrency.required'   => 'O campo "Teste" é obrigatório.',
+                'test_ocorrency.string'     => 'O campo "fase" deve ser um número inteiro.',
+                'approved_or_failed.string' => 'O campo "aprovação" deve ser A ou F.',
+                'approved_or_failed.in'     => 'O campo "aprovação" deve ser A ou F.',
             ];
         }else{
-            $response = ['test_ocorrency.string' => 'O json é inválido.'];
+            $response = ['test_ocorrency.required' => 'O json é inválido.'];
         }
 
         return $response;
     }
+    
 }
