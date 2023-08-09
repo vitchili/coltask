@@ -43,7 +43,8 @@ class AuthApiController extends Controller
                 'token' => $tokenStr,
                 'id' => $user->id,
                 'name' => $user->name,
-                'expires_at' => $tomorrow->format('m-d-Y')
+                'expires_at' => $tomorrow->format('m-d-Y'),
+                'directions' => $user->directions,
             ], 200);
         }
 

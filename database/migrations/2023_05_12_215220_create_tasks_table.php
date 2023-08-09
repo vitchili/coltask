@@ -27,13 +27,13 @@ return new class extends Migration
             $table->timestamp('dead_line', $precision = 0)->nullable();
             $table->foreignIdFor(\App\Models\User::class, 'sponsor_id')->nullable();
             $table->timestamp('started_at', $precision = 0)->nullable();
-            $table->string('modification')->nullable();
+            $table->text('modification')->nullable();
             $table->timestamp('modification_finished_at', $precision = 0)->nullable();
             $table->string('branch')->nullable();
             $table->string('link_merge_request')->nullable(); 
             $table->foreignIdFor(\App\Models\User::class, 'qa_id')->nullable();
             $table->char('approved_or_failed', 1)->nullable();
-            $table->foreignIdFor(\App\Models\User::class, 'approved_or_failed_by')->nullable();
+            $table->text('test_ocorrency')->nullable();
             $table->timestamp('last_approval', $precision = 0)->nullable();
             $table->timestamp('last_failed', $precision = 0)->nullable();
             $table->boolean('deployed')->default('0');

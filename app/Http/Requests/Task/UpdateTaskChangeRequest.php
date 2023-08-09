@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Task;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 use Illuminate\Support\Str;
 
 class UpdateTaskChangeRequest extends FormRequest

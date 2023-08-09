@@ -33,7 +33,7 @@ class Task extends Model
         'link_merge_request',
         'qa_id',
         'approved_or_failed',
-        'approved_or_failed_by',
+        'test_ocorrency',
         'last_approval',
         'last_failed',
         'deployed',
